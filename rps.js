@@ -1,5 +1,13 @@
 let playerScore = 0
 let computerScore = 0
+const body = document.querySelector('body');
+let gameResultsDiv = document.createElement('div');
+let runningScoreDiv = document.createElement('div');
+let finalScoreDiv = document.createElement('div');
+body.appendChild(gameResultsDiv);
+body.appendChild(runningScoreDiv);
+body.appendChild(finalScoreDiv);
+
 
 function computerPlay () {
     let move = Math.floor(Math.random() * 3);
@@ -42,6 +50,49 @@ function playRound (playerSelection, computerSelection) {
 
 }
 
+
+
+
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+    const playerSelection = button.id
+    const computerSelection = computerPlay();
+    
+    
+    let gameResults = playRound (playerSelection, computerSelection);
+    let runningScore = 'Current score is: Player ' + playerScore + ' - Computer ' + computerScore;
+    
+    body.removeChild(gameResultsDiv);
+    body.removeChild(runningScoreDiv);
+
+    gameResultsDiv.textContent = 'Current result: ' + gameResults;  
+    body.appendChild(gameResultsDiv);
+    
+    runningScoreDiv.textContent = runningScore;  
+    body.appendChild(runningScoreDiv);
+
+    if (computerScore === 5) {
+        finalScoreDiv.textContent = 'Computer wins!';  
+        body.appendChild(finalScoreDiv);
+    } else if (playerScore === 5) {
+        finalScoreDiv.textContent = 'Player wins!';  
+        body.appendChild(finalScoreDiv);
+    }
+
+
+
+
+    });
+});
+
+
+
+
+
+/*
+
 function game() {
     for (let i = 0; i < 5; i++) {
         const playerSelection = prompt();
@@ -60,3 +111,5 @@ function game() {
 
 
     }
+
+*/
